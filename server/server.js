@@ -1,17 +1,22 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const authRoutes = require('./routes/auth');
+const cors = require('cors'); // Import CORS
+const { connectToDB } = require('./configs/database');
 
 const app = express();
 const port = 3000;
 
 // Middleware
 app.use(bodyParser.json());
+app.use(cors()); 
 
-// MongoDB connection
-mongoose.connect('mongodb://localhost:27017/employeeDB')
-.then(() => console.log('Connected to MongoDB'))
-.catch(err => console.error('Could not connect to MongoDB...', err));
+// Database connection
+connectToDB();
+
+// Routes
+app.use('/api', authRoutes);
 
 // Sample route
 app.get('/', (req, res) => {
