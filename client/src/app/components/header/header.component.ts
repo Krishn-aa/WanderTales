@@ -16,8 +16,8 @@ export class HeaderComponent {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    const firstName = localStorage.getItem('firstName');
-    const lastName = localStorage.getItem('lastName');
+    const firstName = sessionStorage.getItem('firstName');
+    const lastName = sessionStorage.getItem('lastName');
     if (firstName && lastName) {
       this.userName = `${firstName} ${lastName}`;
     }
@@ -28,9 +28,9 @@ export class HeaderComponent {
   }
 
   logout(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('firstName');
-    localStorage.removeItem('lastName');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('firstName');
+    sessionStorage.removeItem('lastName');
     this.router.navigate(['/login']);
   }
 }

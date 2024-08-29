@@ -2,7 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/auth');
-const cors = require('cors'); // Import CORS
+const postRoutes = require('./routes/posts');
+const cors = require('cors');
 const { connectToDB } = require('./configs/database');
 
 const app = express();
@@ -10,13 +11,15 @@ const port = 3000;
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cors()); 
+app.use(cors());
+
 
 // Database connection
 connectToDB();
 
 // Routes
 app.use('/api', authRoutes);
+app.use('/api/posts', postRoutes);
 
 // Sample route
 app.get('/', (req, res) => {

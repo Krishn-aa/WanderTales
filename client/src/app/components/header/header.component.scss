@@ -3,8 +3,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #e7e7e7;
+  background-color: #ccc;
+
 }
 
 .header-logo {
@@ -25,56 +25,65 @@
 .header-content {
   display: flex;
   align-items: center;
+  flex-grow: 1;
+  justify-content: space-between;
+  margin-left: 1.5rem;
+  gap: 1rem;
 }
 
-.btn-share-experience {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
+.search-container {
+  position: relative;
+  flex-grow: 2;
   margin-right: 20px;
 }
 
-.btn-share-experience img {
+.search-bar {
+  width: 100%;
+  padding: 5px 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
   width: 20px;
-  margin-right: 5px;
+}
+
+.header-icons {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.header-icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.header-icon-button img {
+  width: 24px;
 }
 
 .header-login {
   position: relative;
-}
-
-.user-name {
   cursor: pointer;
   display: flex;
   align-items: center;
 }
 
-.dropdown-menu {
-  position: absolute;
-  top: 30px;
-  right: 0;
-  background-color: white;
-  border: 1px solid #ddd;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  z-index: 1000;
+.header-login img {
+  margin-right: 8px;
 }
 
-.dropdown-menu button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 10px;
-  text-align: left;
-  width: 100%;
-}
-.header-login {
-  position: relative;
-  cursor: pointer;
-}
-
-.header-login span {
+.username {
   margin-left: 8px;
+  line-height: 1;
 }
 
 .dropdown {
@@ -82,10 +91,12 @@
   position: absolute;
   top: 100%;
   right: 0;
-  background-color: white;
+  background-color: #ccc;
   border: 1px solid #ddd;
   padding: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  width: 150px;
 }
 
 .dropdown button {
@@ -95,4 +106,23 @@
   padding: 8px;
   width: 100%;
   text-align: left;
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-container,
+  .header-icons {
+    margin-right: 0;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  .header-icons {
+    justify-content: space-around;
+    width: 100%;
+  }
 }

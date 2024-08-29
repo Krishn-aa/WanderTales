@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   FormBuilder,
-  FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -36,9 +35,9 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.apiService.post('login', this.loginForm.value).subscribe(
         (response: any) => { 
-          localStorage.setItem('token', response.token);
-          localStorage.setItem('firstName', response.user.firstName);
-          localStorage.setItem('lastName', response.user.lastName);
+          sessionStorage.setItem('token', response.token);
+          sessionStorage.setItem('firstName', response.user.firstName);
+          sessionStorage.setItem('lastName', response.user.lastName);
 
           // Redirect to home page
           this.router.navigate(['/home']);

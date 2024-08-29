@@ -1,0 +1,19 @@
+<h2>New Post</h2>
+<div class="post-main">
+  <div class="post-container">
+    <form [formGroup]="postForm" (ngSubmit)="submitPost()">
+      <div class="form-group">
+        <label for="location">Location</label>
+        <input type="text" formControlName="location">
+      </div>
+
+      <div class="form-group">
+        <textarea placeholder="Where have you been?" class="post-input"  formControlName="description"></textarea>
+      </div>
+      <button type="submit" class="post-button" [disabled]="postForm.invalid">Post</button>
+
+    </form>
+   
+    
+  </div>
+</div>

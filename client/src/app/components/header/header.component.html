@@ -1,22 +1,35 @@
 <div class="header-main">
-    <div class="header-logo">
-      <img src="/assets/logo.svg" alt="logo">
-      <p class="header-title">WANDERTALES</p>
+  <div class="header-logo">
+    <img src="/assets/logo.svg" alt="logo">
+    <p class="header-title">WANDERTALES</p>
+  </div>
+
+  <div class="header-content">
+    <div class="search-container">
+      <input type="text" placeholder="search location" class="search-bar">
+      <img src="/assets/search.svg" alt="Search" class="search-icon">
     </div>
-  
-    <div class="header-content">
-      <div class="btn-share-experience">
-        <img src="/assets/plus.svg" alt="add">
-        Share your experience
-      </div>
-  
-      <div class="header-login" (click)="toggleDropdown()">
-        <img src="/assets/login.svg" alt="login-logo">
-        <span *ngIf="userName">{{ userName }}</span>
-        <div class="dropdown" *ngIf="dropdownVisible">
-          <button (click)="logout()">Log out</button>
-        </div>
+
+    <div class="header-icons">
+      <button class="header-icon-button home-button">
+        <img src="/assets/home.svg" alt="Home">
+      </button>
+      <button class="header-icon-button friends-button">
+        <img src="/assets/friends.svg" alt="Friends">
+      </button>
+      <button class="header-icon-button places-button">
+        <img src="/assets/location.svg" alt="Places">
+      </button>
+    </div>
+
+    <div class="header-login" (click)="toggleDropdown()">
+      <img src="/assets/login.svg" alt="login-logo">
+      <span *ngIf="userName" class="username">{{ userName }}</span>
+      <img src="/assets/dropdown.svg" alt="">
+      <div class="dropdown" *ngIf="dropdownVisible">
+        <button>Profile</button>
+        <button (click)="logout()">Log out</button>
       </div>
     </div>
   </div>
-  
+</div>

@@ -1,0 +1,27 @@
+h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  margin: 1rem;
+}
+
+.trending-container {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+}
+.trending-post-overview {
+  margin: 1rem;
+}
+
+.trending-post-description {
+  width: 40%;
+}
+.trending-description{
+  text-align: justify;
+}
+.trending-post-overview img {
+  width: 300px;
+  height: auto;
+}

@@ -1,0 +1,12 @@
+[
+    {
+        "id":"1",
+        "location":"Darjeeling",
+        "description":"this is a very good place to visit",
+        "createdBy":"userid of current logged in user",
+        "createdOn":"current date and time"
+    },
+    {
+        "id":"2"
+    }
+]
