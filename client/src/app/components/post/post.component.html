@@ -1,19 +1,34 @@
-<h2>New Post</h2>
-<div class="post-main">
-  <div class="post-container">
-    <form [formGroup]="postForm" (ngSubmit)="submitPost()">
+<div class="post-main flex flex-col p-4 bg-white rounded-lg shadow-md m-auto w-2/3">
+  <div *ngIf="!postAdded">
+    <div class="flex items-center mb-4">
+      <img [src]="'assets/uploads/'+user?.profilePic" alt="profile-pic" class="w-12 h-12 rounded-full mr-4">
+      <div class="profile-details items-center space-x-2">
+        <p class="font-semibold text-lg">{{user?.firstName}} {{user?.lastName}}</p>
+        <div class="flex gap-2">
+          <img src="https://e7.pngegg.com/pngimages/8/848/png-clipart-globe-earth-map-of-the-world-miscellaneous-globe.png" alt="Public Icon" class="w-5 h-5">
+          <p class="text-gray-500 text-sm">Public</p>
+        </div>
+      </div>
+    </div>
+
+    <form [formGroup]="postForm" (ngSubmit)="submitPost()" class="space-y-4">
       <div class="form-group">
-        <label for="location">Location</label>
-        <input type="text" formControlName="location">
+        <label for="location" class="block text-sm font-medium text-gray-700">Location</label>
+        <input type="text" formControlName="location" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
       </div>
 
       <div class="form-group">
-        <textarea placeholder="Where have you been?" class="post-input"  formControlName="description"></textarea>
+        <textarea placeholder="Where have you been?" class="post-input mt-1 block w-full h-24 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="description"></textarea>
       </div>
-      <button type="submit" class="post-button" [disabled]="postForm.invalid">Post</button>
 
+      <button type="submit" class="post-button w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50" [disabled]="postForm.invalid">Post</button>
     </form>
-   
-    
+  </div>
+
+  <div *ngIf="postAdded" class="text-center">
+    <p class="text-green-600 font-semibold">Post added successfully!</p>
+    <button (click)="addAnotherPost()" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+      Add Another Post
+    </button>
   </div>
 </div>

@@ -1,26 +1,30 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import User from '../../models/user';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent {
-  userName: string | null = null;
+
+export class HeaderComponent implements OnInit {
+  user: User | null = null;
   dropdownVisible = false;
 
-  constructor(private router: Router) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
-    const firstName = sessionStorage.getItem('firstName');
-    const lastName = sessionStorage.getItem('lastName');
-    if (firstName && lastName) {
-      this.userName = `${firstName} ${lastName}`;
-    }
+    this.userService.user$.subscribe((user: User | null) => {
+      if (user) {
+        this.user = user;
+      }
+    });
+    this.userService.fetchUserDetails();
   }
 
   toggleDropdown(): void {
@@ -28,9 +32,8 @@ export class HeaderComponent {
   }
 
   logout(): void {
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('firstName');
-    sessionStorage.removeItem('lastName');
+    sessionStorage.clear();
+    this.userService.clearUser();
     this.router.navigate(['/login']);
   }
 }

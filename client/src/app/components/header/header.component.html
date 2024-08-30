@@ -11,9 +11,9 @@
     </div>
 
     <div class="header-icons">
-      <button class="header-icon-button home-button">
+      <a routerLink="/main/home" class="header-icon-button home-button">
         <img src="/assets/home.svg" alt="Home">
-      </button>
+      </a>
       <button class="header-icon-button friends-button">
         <img src="/assets/friends.svg" alt="Friends">
       </button>
@@ -23,11 +23,13 @@
     </div>
 
     <div class="header-login" (click)="toggleDropdown()">
-      <img src="/assets/login.svg" alt="login-logo">
-      <span *ngIf="userName" class="username">{{ userName }}</span>
+      <img [src]="'/assets/uploads/'+user?.profilePic" alt="login-logo">
+      <span *ngIf="user" class="username">{{ user.firstName}} {{user.lastName}}</span>
       <img src="/assets/dropdown.svg" alt="">
       <div class="dropdown" *ngIf="dropdownVisible">
-        <button>Profile</button>
+        <button>
+          <a routerLink="/main/profile">Profile</a>
+        </button>
         <button (click)="logout()">Log out</button>
       </div>
     </div>

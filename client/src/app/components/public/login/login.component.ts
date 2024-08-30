@@ -36,11 +36,9 @@ export class LoginComponent {
       this.apiService.post('login', this.loginForm.value).subscribe(
         (response: any) => { 
           sessionStorage.setItem('token', response.token);
-          sessionStorage.setItem('firstName', response.user.firstName);
-          sessionStorage.setItem('lastName', response.user.lastName);
+          sessionStorage.setItem('id',response.user.id);
 
-          // Redirect to home page
-          this.router.navigate(['/home']);
+          this.router.navigate(['/main']);
         },
         (error) => {
           console.error('Login error:', error);

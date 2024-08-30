@@ -3,15 +3,28 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
+const multer = require("multer");
 const Post = require("../models/post");
+const path = require("path");
 
 const JWT_SECRET = "654gfdiuhgf23";
 
+// Set up multer storage
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, '../client/public/assets/uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ storage });
+
 // POST /api/register - Register a new user
-router.post("/register", async (req, res) => {
+router.post("/register", upload.single('profilePic'), async (req, res) => {
   try {
     const { firstName, lastName, email, username, password } = req.body;
-
     let user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({ msg: "User already exists" });
@@ -31,6 +44,7 @@ router.post("/register", async (req, res) => {
       email,
       username,
       password: hashedPassword,
+      profilePic: req.file ? req.file.filename : null, // Save profile picture path
     });
 
     await user.save();
@@ -61,7 +75,6 @@ router.post("/login", async (req, res) => {
     const payload = {
       user: {
         id: user.id,
-        email: user.email,
       },
     };
 
@@ -75,8 +88,7 @@ router.post("/login", async (req, res) => {
         res.json({
           token,
           user: {
-            firstName: user.firstName,
-            lastName: user.lastName,
+            id: user.id,
           },
         });
       }

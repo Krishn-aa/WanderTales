@@ -2,6 +2,10 @@
     <h1>SignupForm</h1>
     <form [formGroup]="userForm" (ngSubmit)="submitForm()" class="sign-up-form">
         <div class="form-group">
+            <label for="profilePic">Profile Picture</label>
+            <input class="sign-up-form-input" type="file" id="profilePic" name="profilePic" (change)="onFileChange($event)">
+        </div>
+        <div class="form-group">
             <label for="firstName">First Name</label>
             <input class="sign-up-form-input" type="text" id="firstName" name="firstName" placeholder="Text"
                 formControlName="firstName">

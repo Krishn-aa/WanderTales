@@ -14,6 +14,7 @@ import { RouterLink } from '@angular/router';
 })
 export class SignupComponent {
   userForm: any;
+  selectedFile: File | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,9 +31,23 @@ export class SignupComponent {
     });
   }
 
+  onFileChange(event: any) {
+    this.selectedFile = event.target.files[0] || null;
+  }
+
   submitForm(): void {
     if (this.userForm?.valid) {
-      this.apiService.post('register', this.userForm.value).subscribe(
+      const formData = new FormData();
+      formData.append('firstName', this.userForm.value.firstName);
+      formData.append('lastName', this.userForm.value.lastName);
+      formData.append('email', this.userForm.value.email);
+      formData.append('username', this.userForm.value.username);
+      formData.append('password', this.userForm.value.password);
+      if (this.selectedFile) {
+        formData.append('profilePic', this.selectedFile);
+      }
+
+      this.apiService.post('register', formData).subscribe(
         (response) => {
           alert('Registration successful:');
         },
