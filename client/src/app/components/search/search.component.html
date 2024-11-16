@@ -1,0 +1,29 @@
+<div *ngFor="let user of userList" class="flex items-center space-x-4 bg-gray-800 p-4 rounded-lg shadow-md">
+    <!-- Profile Picture -->
+    <img 
+      [src]="'assets/uploads/profile_pictures/'+user.profilePic || '/assets/default-profile-pic.jpg'" 
+      alt="{{user.firstName}}'s profile picture" 
+      class="w-12 h-12 rounded-full border border-gray-600"
+    />
+  
+    <!-- Name and Follow Status -->
+    <div class="flex-1">
+      <a 
+        class="text-lg font-semibold text-blue-400 hover:underline"
+      >
+        {{user.firstName}} {{user.lastName}}
+      </a>
+      <p class="text-sm text-gray-400">
+        Follows you: <span>yes</span>
+      </p>
+    </div>
+  
+    <!-- Follow Button -->
+    <button 
+      class="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 focus:outline-none"
+      (click)="toggleFollow(user)"
+    >
+      {{user.followers.includes(user._id) ? 'Unfollow' : 'Follow'}}
+    </button>
+  </div>
+  

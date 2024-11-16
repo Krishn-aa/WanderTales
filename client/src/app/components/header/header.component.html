@@ -6,8 +6,8 @@
 
   <div class="header-content">
     <div class="search-container">
-      <input type="text" placeholder="search location" class="search-bar">
-      <img src="/assets/search.svg" alt="Search" class="search-icon">
+      <input [(ngModel)]="searchQuery" type="text" placeholder="search for people" class="search-bar">
+      <img src="/assets/search.svg" alt="Search" class="search-icon hover:cursor-pointer" (click)="goToSearch()">
     </div>
 
     <div class="header-icons">

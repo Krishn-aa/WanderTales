@@ -50,11 +50,11 @@
         <!-- Post Actions -->
         <div class="mt-4">
             <!-- Hollow heart -->
-            <i *ngIf="user?._id && !post.likes.includes(user._id)" (click)="toggleLike()"
+            <i *ngIf="user?._id && !post.likes.includes(user._id)" (click)="toggleLike(post._id)"
                 class="fa-regular fa-heart mr-5 fa-1x scale-150 hover:text-red-600"></i>
 
             <!-- Solid red heart -->
-            <i *ngIf="post.likes.includes(user._id)" (click)="toggleLike()"
+            <i *ngIf="post.likes.includes(user._id)" (click)="toggleLike(post._id)"
                 class="fa-solid fa-heart mr-5 fa-1x scale-150 text-red-500"></i>
 
             <i class="fa-regular fa-comment mr-5 fa-1x scale-150 hover:text-red-600"></i>

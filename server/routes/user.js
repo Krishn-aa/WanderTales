@@ -26,11 +26,31 @@ function verifyToken(req, res, next) {
 // GET /api/users/:id - Get a specific user by ID
 router.get("/:id", verifyToken, async (req, res) => {
   try {
+    console.log('in id');
     const user = await User.findById(req.params.id).select("-password");
     if (!user) {
       return res.status(404).json({ msg: "User not found" });
     }
     res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+router.get("/search/:querySearch", async (req, res) => {
+  try {
+    console.log('in search')
+    const searchQuery = req.params.querySearch;
+    console.log(searchQuery);
+    const users = await User.find({
+      $or: [
+        { firstName: { $regex: searchQuery, $options: "i" } },
+        { lastName: { $regex: searchQuery, $options: "i" } }
+      ]
+    });
+
+    res.json(users);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");

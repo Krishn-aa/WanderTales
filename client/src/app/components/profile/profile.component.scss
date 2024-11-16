@@ -1,6 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-.top-image-container{
-    background-image: url('/assets/profile-background.jfif');
+
+.profile-page-container {
+  height: 60vh;
+  background-color: #f9fafb;
+  font-family: "Arial, sans-serif";
+}
+
+.profile-header {
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.profile-details p {
+  font-size: 1rem;
+  color: #374151;
+}
+
+.profile-details ul li {
+  font-size: 0.9rem;
+  color: #6b7280;
 }

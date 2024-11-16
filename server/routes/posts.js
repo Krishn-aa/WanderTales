@@ -36,9 +36,9 @@ function verifyToken(req, res, next) {
 }
 
 // POST /api/posts/add - Create a new post with media
-router.post("/add", verifyToken, upload.array('media', 5), async (req, res) => {
+router.post("/add", verifyToken, upload.array("media", 5), async (req, res) => {
   try {
-    console.log('add post is hit');
+    console.log("add post is hit");
     const { location, description } = req.body;
 
     // Extract uploaded file names
@@ -61,7 +61,6 @@ router.post("/add", verifyToken, upload.array('media', 5), async (req, res) => {
     res.status(500).send("Server error");
   }
 });
-
 
 // GET /api/posts/getPosts/:userId - Get all posts by userId
 router.get("/getPosts/:userId", async (req, res) => {
@@ -93,7 +92,10 @@ router.get("/getAll", async (req, res) => {
 // GET /api/posts/:id - Get a specific post by ID
 router.get("/:id", async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id).populate("createdBy", "firstName lastName");
+    const post = await Post.findById(req.params.id).populate(
+      "createdBy",
+      "firstName lastName"
+    );
     if (!post) {
       return res.status(404).json({ msg: "Post not found" });
     }
@@ -124,6 +126,38 @@ router.put("/:id", verifyToken, async (req, res) => {
     await post.save();
 
     res.json(post);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+//Like Post
+// Like or Unlike Post
+router.post("/likes/:id", verifyToken, async (req, res) => {
+  try {
+    console.log("Like/unlike post is hit");
+
+    // Fetch the post by ID
+    let post = await Post.findById(req.params.id);
+    if (!post) {
+      return res.status(400).json({ msg: "There is something wrong with the post" });
+    }
+
+    // Check if the user's ID already exists in the likes array
+    const likeIndex = post.likes.indexOf(req.user.id);
+
+    if (likeIndex === -1) {
+      // If not found, add the user ID to the likes array
+      post.likes.push(req.user.id);
+      await post.save();
+      res.json({ msg: "Post liked" });
+    } else {
+      // If found, remove the user ID from the likes array
+      post.likes.splice(likeIndex, 1);
+      await post.save();
+      res.json({ msg: "Post unliked" });
+    }
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");

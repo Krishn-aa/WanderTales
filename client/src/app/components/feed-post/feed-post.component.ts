@@ -4,7 +4,7 @@ import User from '../../models/user';
 import Post from '../../models/post';
 import { CommonModule } from '@angular/common';
 import { NgbCarouselModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-feed-post',
@@ -18,25 +18,38 @@ export class FeedPostComponent {
 
   user: User = new User();
 
-  constructor(private userService: UserService) {
+  constructor(
+    private userService: UserService,
+    private apiService: ApiService
+  ) {
     this.userService.user$.subscribe((user: User | null) => {
       if (user) {
         this.user = user;
-        console.log(this.user);
       }
     });
     this.userService.fetchUserDetails();
   }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
-  toggleLike(): void {
+  toggleLike(postId: string | undefined): void {
     if (!this.user || !this.user._id) return;
-  
+
     const index = this.post.likes.indexOf(this.user._id);
-    index === -1 ? this.post.likes.push(this.user._id) : this.post.likes.splice(index, 1);
+    if (index === -1) {
+      this.post.likes.push(this.user._id);
+      if (postId) {
+        this.apiService
+          .post(`posts/likes/${postId}`, this.user._id)
+          .subscribe();
+      }
+    } else {
+      if (postId) {
+        this.apiService
+          .post(`posts/likes/${postId}`, this.user._id)
+          .subscribe();
+      }
+      this.post.likes.splice(index, 1);
+    }
   }
-  
 }
