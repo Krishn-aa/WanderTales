@@ -1,73 +1,169 @@
-form {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+.login-container {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 
-  div {
-    margin-bottom: 15px;
+  // Background image with blur effect
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("/assets/login_form_back.jpg");
+    background-size: cover;
+    background-position: center;
+    filter: blur(8px); /* Apply the blur effect */
+    z-index: 1;
+  }
 
-    label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
+  // Dark overlay for better readability
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    z-index: 2;
+  }
+
+  .login-info,
+  .login-main {
+    position: relative;
+    z-index: 3; /* Ensure content is above the background */
+    color: white;
+  }
+
+  .login-info {
+    flex: 1;
+    padding: 40px;
+    max-width: 500px;
+    text-align: center;
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
     }
 
-    input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 16px;
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+  }
 
-      &:focus {
-        border-color: #28a745;
-        outline: none;
-        box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+  .login-main {
+    background-color: white;
+    color: black; /* Make form content readable */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    form {
+      div {
+        margin-bottom: 15px;
+
+        label {
+          display: block;
+          margin-bottom: 5px;
+          font-weight: bold;
+        }
+
+        input {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          font-size: 16px;
+
+          &:focus {
+            border-color: #28a745;
+            outline: none;
+            box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+          }
+        }
+      }
+
+      button {
+        width: 100%;
+        padding: 10px;
+        background-color: #28a745;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+
+        &:disabled {
+          background-color: #6c757d;
+        }
+
+        &:hover:enabled {
+          background-color: #218838;
+        }
       }
     }
 
-    div {
-      color: #d9534f;
+    .link-to-signup {
+      margin-top: 20px;
+      text-align: center;
+
+      a {
+        color: #007bff;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+
+@media (max-width: 768px) {
+  .login-info {
+    padding: 20px;
+    h2 {
+      font-size: 2rem;
+    }
+    p {
+      font-size: 1rem;
+    }
+  }
+
+  .login-main {
+    padding: 20px;
+    max-width: 90%;
+    h1 {
+      font-size: 1.5rem;
+    }
+  }
+
+  .form-group {
+    margin-bottom: 10px;
+    label {
       font-size: 14px;
-      margin-top: 5px;
+    }
+    input {
+      padding: 8px;
+      font-size: 14px;
     }
   }
 
   button {
-    width: 100%;
-    padding: 10px;
-    background-color: #28a745;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-
-    &:disabled {
-      background-color: #6c757d;
-    }
-
-    &:hover:enabled {
-      background-color: #218838;
-    }
+    padding: 8px;
+    font-size: 14px;
   }
-}
-.link-to-signup {
-  margin-top: 20px;
-  text-align: center;
-
-  a {
-    color: #007bff;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
-
-.text-danger {
-  color: red;
 }

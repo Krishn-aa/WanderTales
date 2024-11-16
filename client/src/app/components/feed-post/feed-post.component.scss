@@ -1,0 +1,17 @@
+.carousel img,
+.post-img {
+  height: 600px;
+  object-fit: cover; 
+  width: 100%; 
+}
+
+.carousel {
+  height: 600px;
+}
+
+.carousel .picsum-img-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}

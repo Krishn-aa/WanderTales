@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 @import 'variables';
 @import 'mixins';
 @import 'functions';
@@ -9,3 +12,5 @@ body{
     box-sizing: border-box;
     font-family: "Inter", sans-serif;
 }
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';

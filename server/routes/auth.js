@@ -12,7 +12,7 @@ const JWT_SECRET = "654gfdiuhgf23";
 // Set up multer storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, '../client/public/assets/uploads/');
+    cb(null, '../client/public/assets/uploads/profile_pictures');
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname));
@@ -44,7 +44,12 @@ router.post("/register", upload.single('profilePic'), async (req, res) => {
       email,
       username,
       password: hashedPassword,
-      profilePic: req.file ? req.file.filename : null, // Save profile picture path
+      profilePic: req.file ? req.file.filename : null,
+      bio :'',
+      followers: [],
+      following: [],
+      friends: [],
+      posts: [],
     });
 
     await user.save();
@@ -84,7 +89,6 @@ router.post("/login", async (req, res) => {
       { expiresIn: "1h" },
       (err, token) => {
         if (err) throw err;
-        // Send the token and user details in the response
         res.json({
           token,
           user: {

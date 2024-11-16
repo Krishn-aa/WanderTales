@@ -5,22 +5,32 @@ import { PostComponent } from '../post/post.component';
 import { TrendingComponent } from '../trending/trending.component';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FeedPostComponent } from '../feed-post/feed-post.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, FeedComponent, PostComponent, TrendingComponent, RouterOutlet],
+  imports: [
+    CommonModule,
+    HeaderComponent,
+    FeedComponent,
+    PostComponent,
+    TrendingComponent,
+    RouterOutlet,
+  ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
 })
 export class HomeComponent {
   profileActive = false;
 
+  
   constructor(private router: Router, private route: ActivatedRoute) {
     this.route.children.forEach((child) => {
       child.url.subscribe((url) => {
         this.profileActive = url[0] && url[0].path === 'profile';
       });
     });
+
   }
 }

@@ -1,24 +1,16 @@
-export default class User {
-  firstName: string;
-  lastName: string;
-  email: string;
-  username: string;
-  password: string;
-  profilePic?: string;
+import Post from "./post";
 
-  constructor(
-    firstName: string,
-    lastName: string,
-    email: string,
-    username: string,
-    password: string,
-    profilePic?: string
-  ) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-    this.username = username;
-    this.password = password;
-    this.profilePic = profilePic;
-  }
+export default class User {
+  _id:string='';
+  firstName: string='';
+  lastName: string='';
+  email: string='';
+  username: string='';
+  password: string='';
+  profilePic?: string='';
+  bio: string='';
+  followers:string[]=[];
+  followings:string[]=[];
+  friends:string[]=[];
+  posts:Post[]=[];
 }

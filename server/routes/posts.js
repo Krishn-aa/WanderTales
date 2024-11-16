@@ -1,37 +1,56 @@
 const express = require("express");
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 const router = express.Router();
+const multer = require("multer");
+const path = require("path");
 const Post = require("../models/post");
 
 const JWT_SECRET = "654gfdiuhgf23";
 
+// Multer storage setup for media uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "../client/public/assets/uploads/posts");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({ storage });
 
 // Middleware to verify the token
 function verifyToken(req, res, next) {
-  const token = req.header('Authorization');
+  const token = req.header("Authorization");
   if (!token) {
-    return res.status(401).json({ msg: 'No token, authorization denied' });
+    return res.status(401).json({ msg: "No token, authorization denied" });
   }
 
-  // Verify token
   try {
-    const decoded = jwt.verify(token.split(' ')[1], JWT_SECRET);
+    const decoded = jwt.verify(token.split(" ")[1], JWT_SECRET);
     req.user = decoded.user;
     next();
   } catch (err) {
-    res.status(401).json({ msg: 'Token is not valid' });
+    res.status(401).json({ msg: "Token is not valid" });
   }
 }
 
-
-router.post("/add", verifyToken, async (req, res) => {
+// POST /api/posts/add - Create a new post with media
+router.post("/add", verifyToken, upload.array('media', 5), async (req, res) => {
   try {
+    console.log('add post is hit');
     const { location, description } = req.body;
 
+    // Extract uploaded file names
+    const mediaFiles = req.files.map((file) => file.filename);
+
     const newPost = new Post({
+      userId: req.user.id,
       location,
       description,
-      createdBy: req.user.id, 
+      media: mediaFiles,
+      likes: [],
+      comments: [],
     });
 
     await newPost.save();
@@ -44,8 +63,24 @@ router.post("/add", verifyToken, async (req, res) => {
 });
 
 
-// GET /api/posts - Get all posts
-router.get("/get", async (req, res) => {
+// GET /api/posts/getPosts/:userId - Get all posts by userId
+router.get("/getPosts/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    const posts = await Post.find({ userId: userId });
+    if (posts.length === 0) {
+      return res.status(404).json({ msg: "No posts found for this user" });
+    }
+    res.json(posts);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// GET /api/posts/getAll - Get all posts
+router.get("/getAll", async (req, res) => {
   try {
     const posts = await Post.find().populate("createdBy", "firstName lastName");
     res.json(posts);
@@ -74,14 +109,12 @@ router.put("/:id", verifyToken, async (req, res) => {
   try {
     const { location, description } = req.body;
 
-    // Find the post by ID and update it
     let post = await Post.findById(req.params.id);
     if (!post) {
       return res.status(404).json({ msg: "Post not found" });
     }
 
-    // Ensure the logged-in user is the one who created the post
-    if (post.createdBy.toString() !== req.user.id) {
+    if (post.userId.toString() !== req.user.id) {
       return res.status(401).json({ msg: "User not authorized" });
     }
 
@@ -105,8 +138,7 @@ router.delete("/:id", verifyToken, async (req, res) => {
       return res.status(404).json({ msg: "Post not found" });
     }
 
-    // Ensure the logged-in user is the one who created the post
-    if (post.createdBy.toString() !== req.user.id) {
+    if (post.userId.toString() !== req.user.id) {
       return res.status(401).json({ msg: "User not authorized" });
     }
 

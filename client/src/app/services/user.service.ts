@@ -14,7 +14,6 @@ export class UserService {
 
   fetchUserDetails(): void {
     const id = sessionStorage.getItem('id');
-
     if (id) {
       this.apiService.get('users/' + id).subscribe(
         (data: User) => {
@@ -33,6 +32,6 @@ export class UserService {
   }
 
   clearUser(): void {
-    this.userSubject.next(null); // Clear the current user
+    this.userSubject.next(null);
   }
 }

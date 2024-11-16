@@ -4,9 +4,11 @@ import { MainComponent } from "./components/main/main.component";
 import { ProfileComponent } from "./components/profile/profile.component";
 import { LoginComponent } from "./components/public/login/login.component";
 import { SignupComponent } from "./components/public/signup/signup.component";
+import { LandingPageComponent } from "./components/landing-page/landing-page.component";
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' }, // Default route redirects to login
+  {path : '', component:LandingPageComponent},
+  // { path: '', redirectTo: '/login', pathMatch: 'full' }, // Default route redirects to login
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   {

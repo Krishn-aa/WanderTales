@@ -1,0 +1,59 @@
+<div [ngStyle]="{'background-image': 'url(' + wallpaperSrc + ')'}" class="h-screen flex flex-col">
+
+    <!-- Header section -->
+    <div class="m-2 p-2 bg-transparent flex justify-between">
+        <div class="flex gap-10 place-content-center place-items-center">
+            <img src="/assets/logo.svg" class="w-12 h-12" alt="logo">
+            <p class="text-2xl text-white cursor-pointer group relative">
+                Explore Places
+                <span
+                    class="absolute left-0 bottom-0 h-0.5 w-full bg-yellow-500 scale-y-0 group-hover:scale-y-100 transition-transform duration-300 ease-in-out"></span>
+            </p>
+
+            <p class="text-2xl text-white cursor-pointer group relative">
+                Travel Stories
+                <span
+                    class="absolute left-0 bottom-0 h-0.5 w-full bg-yellow-500 scale-y-0 group-hover:scale-y-100 transition-transform duration-300 ease-in-out"></span>
+            </p>
+        </div>
+        <div class="flex gap-10 place-content-center place-items-center px-3">
+            <button [routerLink]="['/signup']"
+                class="border-black border-2 px-4 py-2 w-30 rounded hover:bg-slate-900 hover:text-white">Join</button>
+            <button
+                class="border-black border-2 text-white bg-black px-4 py-2 w-30 rounded hover:text-black hover:bg-white">
+                Explore
+            </button>
+        </div>
+    </div>
+
+    <div class="h-screen flex items-center">
+        <div class="bg-white bg-opacity-10 text-white p-8 md:p-16 max-w-2xl rounded-lg ml-10">
+            <!-- Title Text -->
+            <p class="text-6xl md:text-6xl font-extrabold leading-snug mb-4">
+                Connect
+            </p>
+            <p class="text-6xl md:text-6xl font-extrabold leading-snug mb-4">
+                Explore
+            </p>
+            <p class="text-4xl md:text-5xl font-extrabold leading-snug mb-4">
+                Discover Your Next Adventure
+            </p>
+            <!-- Subtitle Text -->
+            <p class="text-lg md:text-xl leading-relaxed mb-8">
+                Welcome to Wanderlust, where your travel dreams come alive! Join a vibrant community of explorers eager
+                to share experiences and uncover hidden gems around the globe.
+            </p>
+            <!-- Buttons -->
+            <div class="flex gap-4">
+                <button class="border border-white px-6 py-2 rounded hover:bg-white hover:text-gray-800 transition"
+                    [routerLink]="['/signup']">
+                    Join Us
+                </button>
+                <button
+                    class="border border-gray-500 bg-gray-600 text-white px-6 py-2 rounded hover:bg-gray-500 transition">
+                    Learn More
+                </button>
+            </div>
+        </div>
+
+    </div>

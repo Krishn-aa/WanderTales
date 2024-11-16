@@ -23,7 +23,7 @@
     </div>
 
     <div class="header-login" (click)="toggleDropdown()">
-      <img [src]="'/assets/uploads/'+user?.profilePic" alt="login-logo">
+      <img [src]="'/assets/uploads/profile_pictures/'+user?.profilePic" alt="login-logo">
       <span *ngIf="user" class="username">{{ user.firstName}} {{user.lastName}}</span>
       <img src="/assets/dropdown.svg" alt="">
       <div class="dropdown" *ngIf="dropdownVisible">
